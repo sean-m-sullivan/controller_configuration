@@ -70,54 +70,36 @@
 
   tasks:
 
-    - name: Add Controller Settings Individually
-      ansible.builtin.include_role:
-        name: settings
-      vars:
-        controller_settings: "{{ controller_settings_individuale }}"
+    - name: Get the organization ID
+      ansible.builtin.set_fact:
+        controller_organization_id: "{{ lookup(controller_api_plugin, 'organizations', query_params={'name': 'Default'}, host=controller_hostname, username=controller_username, password=controller_password, verify_ssl=false) }}"
 
-    - name: Run ad hoc commands
-      ansible.builtin.include_role:
-        name: ad_hoc_command
-      when: controller_ad_hoc_commands is defined
+    - name: "Set empty lists for testing"
+      ansible.builtin.set_fact:
+        controller_api_results: []
+        differential_test_items: []
 
-    - name: Cancel Ad hoc commands
-      ansible.builtin.include_tasks: "./tasks/ad_hoc_cancel.yml"
-      when: controller_ad_hoc_commands is defined
+    - name: "Error out on empty list"
+      ansible.builtin.set_fact:
+        error_empty_diff: "{{ lookup('redhat_cop.controller_configuration.controller_object_diff', api_list=controller_api_results, compare_list=differential_test_items, warn_on_empty_api=false) }}"
+      ignore_errors: true
+      register: error_results
 
-    - name: Launch Controller Jobs
-      ansible.builtin.include_role:
-        name: job_launch
-      when: controller_launch_jobs is defined
+    - name: "Warn out on empty list"
+      ansible.builtin.set_fact:
+        warn_empty_diff: "{{ lookup('redhat_cop.controller_configuration.controller_object_diff', api_list=controller_api_results, compare_list=differential_test_items) }}"
+      register: warn_results
 
-    - name: Show launched Controller jobs
-      ansible.builtin.debug:
-        var: launched_controller_jobs
+    - name: "Assert that the empty list error correctly"
+      ansible.builtin.assert:
+        that:
+          - error_empty_diff is not defined
+          - warn_empty_diff | length == 0
+          - "'Unable to find items in api_list' in error_results.msg"
 
-    - name: Cancel Controller Jobs
-      ansible.builtin.include_role:
-        name: jobs_cancel
-      vars:
-        controller_cancel_jobs: "{{ launched_controller_jobs.results }}"
-      when: launched_controller_jobs is defined
-
-    - name: Launch Controller workflows
-      ansible.builtin.include_role:
-        name: workflow_launch
-      when: controller_workflow_launch_jobs is defined
-
-    - name: Launched Workflows
-      ansible.builtin.debug:
-        var: launched_controller_workflows
-
-    - name: Wait for workflow to finish
-      job_wait:
-        job_id: "{{ launched_controller_workflows.results[0].id }}"
-        job_type: workflow_jobs
-        timeout: 180
-        controller_username:     "{{ controller_username }}"
-        controller_password:     "{{ controller_password }}"
-        controller_host:         "{{ controller_hostname }}"
-        validate_certs:          "{{ controller_validate_certs }}"
-      ignore_errors: true  ## noqa ignore-errors
+    - name: Differential Testing
+      ansible.builtin.include_tasks: "./tasks/differential.yml"
+      loop: "{{ differential_items }}"
+      loop_control:
+        loop_var: differential_item
 ...
