@@ -1,0 +1,57 @@
+---
+name: galaxy-release
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      ANSIBLE_FORCE_COLOR: 1
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+
+      - name: redhat_cop Publish to Tag
+        run: ansible-playbook .github/workflow-config/release_tarball.yml
+          -e namespace=${{ github.repository_owner }}
+          -e github_tag=${{ github.ref }}
+          -e collection_repo=https://github.com/${{ github.repository }}
+          --verbose --skip-tags=install,cleanup
+
+      - name: infra Publish to Tag
+        run: ansible-playbook .github/workflow-config/release_tarball.yml
+          -e namespace=infra
+          -e github_tag=${{ github.ref }}
+          -e collection_repo=https://github.com/${{ github.repository }}
+          --verbose --skip-tags=install,cleanup
+
+      - name: run ls
+        run: ls
+
+      - name: Upload files to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: infra-controller_configuration-${{ github.ref }}.tar.gz
+          tag: ${{ github.ref }}
+          overwrite: true
+
+      - name: Upload files to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: redhat_cop-controller_configuration-${{ github.ref }}.tar.gz
+          tag: ${{ github.ref }}
+          overwrite: true
+...
