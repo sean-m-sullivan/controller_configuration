@@ -146,6 +146,26 @@ Bugfixes
 - added when to skip inventory source update when item is absent
 - added when to skip project update when item is absent
 
+v2.0.1
+======
+
+Minor Changes
+-------------
+
+- Update release process to avoid problems that have happened and automate it.
+- removed all examples from repo outside of readmes
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- infra.controller_configuration 2.2.3 is broken, it is aap_utilities release. We are bumping the version to minimize the issues.
+- rewrote playbooks/controller_configure.yml and removed all other playbooks
+
+Removed Features (previously deprecated)
+----------------------------------------
+
+- update_on_project_update in inventory_source as an option due to the awx module no longer supports this option.
+
 v2.0.0
 ======
 
