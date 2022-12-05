@@ -76,6 +76,13 @@ releases:
     - notif_update.yml
     - tower_export_update.yml
     release_date: '2020-10-22'
+  1.0.11:
+    changes:
+      minor_changes:
+      - update lookup plugin to conform to sanity tests.
+    fragments:
+    - workflow.yaml
+    release_date: '2022-12-05'
   1.0.2:
     changes:
       minor_changes:

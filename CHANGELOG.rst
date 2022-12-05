@@ -277,6 +277,14 @@ Bugfixes
 
 - Corrected README for tower_validate_certs variable defaults on all roles
 
+v1.0.11
+=======
+
+Minor Changes
+-------------
+
+- update lookup plugin to conform to sanity tests.
+
 v1.0.2
 ======
 
