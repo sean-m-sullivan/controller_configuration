@@ -5,6 +5,14 @@ redhat_cop.controller_configuration Release Notes
 .. contents:: Topics
 
 
+v2.2.5
+======
+
+Minor Changes
+-------------
+
+- update lookup plugin to conform to sanity tests.
+
 v2.2.4
 ======
 
