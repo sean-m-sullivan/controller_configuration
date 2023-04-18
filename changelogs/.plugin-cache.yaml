@@ -13,6 +13,14 @@ objects:
       description: An Ansible Role to create Applications on Ansible Controller.
       name: applications
       version_added: null
+    bulk_host_create:
+      description: An Ansible Role to run a list of ad hoc commands on Ansible Controller.
+      name: bulk_host_create
+      version_added: null
+    bulk_job_launch:
+      description: An Ansible Role to run a list of ad hoc commands on Ansible Controller.
+      name: bulk_job_launch
+      version_added: null
     credential_input_sources:
       description: An Ansible Role to create Credential Input Sources on Ansible Controller.
       name: credential_input_sources
@@ -156,10 +164,14 @@ plugins:
       description: Return difference for objects from Controller API
       name: controller_object_diff
       version_added: null
+    enforce_defaults:
+      description: Return difference for objects from Controller API
+      name: enforce_defaults
+      version_added: 2.4.0
   module: {}
   netconf: {}
   shell: {}
   strategy: {}
   test: {}
   vars: {}
-version: 2.3.1
+version: 2.2.0
