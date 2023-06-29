@@ -79,19 +79,6 @@
       ansible.builtin.pip:
         name: awxkit
 
-    - name: Export projects
-      awx.awx.export:
-        credentials: all
-        controller_host: "{{ controller_hostname }}"
-        controller_username: "{{ controller_username }}"
-        controller_password: "{{ controller_password }}"
-        validate_certs: "{{ controller_validate_certs }}"
-      register: pure_export
-
-    - name: Export output
-      ansible.builtin.debug:
-        var: pure_export
-
     - name: Install, configure, and start Apache
       # It works on earlier versions, the issue is new fields fail in the differential.
       when: (awx_version == "devel" ) or (awx_version == "22.4.0") or (awx_version == "22.3.0")
@@ -100,16 +87,16 @@
           infra.controller_configuration.controller_export_diff:
             credentials: all
             compare_items:
-              #organizations: "{{ organizations }}"
-              #projects: "{{ projects }}"
-              #credential_types: "{{ credential_types }}"
+              organizations: "{{ organizations }}"
+              projects: "{{ projects }}"
+              credential_types: "{{ credential_types }}"
               credentials: "{{ credentials }}"
-              #inventory: "{{ inventory }}"
-              #inventory_sources: "{{ inventory_sources }}"
-              #notification_templates: "{{ notification_templates }}"
-              #teams: "{{ teams }}"
-              #users: "{{ users }}"
-              #job_templates: "{{ job_templates }}"
+              inventory: "{{ inventory }}"
+              inventory_sources: "{{ inventory_sources }}"
+              notification_templates: "{{ notification_templates }}"
+              teams: "{{ teams }}"
+              users: "{{ users }}"
+              job_templates: "{{ job_templates }}"
             with_present: false
             controller_host: "{{ controller_hostname }}"
             controller_username: "{{ controller_username }}"
