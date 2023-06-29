@@ -312,17 +312,17 @@ def main():
                                 if resource_object["username"] == dict_["username"]:
                                     #output_list["removed"].append(awxkit_list[resource][idx])
                                     #awxkit_list[resource].pop(idx)
-                                    module.fail_json(msg="export asset: {0}".format(dict_))
+                                    module.fail_json(msg="'export asset1': {0}, 'resource': {1}, ".format(dict_,resource_object))
                             elif "organization" not in resource_object or resource_object["organization"] is None:
                                 if resource_object["name"] == dict_["name"]:
                                     #output_list["removed"].append(awxkit_list[resource][idx])
                                     #awxkit_list[resource].pop(idx)
-                                    module.fail_json(msg="export asset: {0}".format(dict_))
+                                    module.fail_json(msg="'export asset2': {0}, 'resource': {1}, ".format(dict_,resource_object))
                             else:
                                 if resource_object["name"] == dict_["name"] and resource_object["organization"]["name"] == dict_["organization"]["name"]:
                                     #output_list["removed"].append(awxkit_list[resource][idx])
                                     #awxkit_list[resource].pop(idx)
-                                    module.fail_json(msg="export asset: {0}".format(dict_))
+                                    module.fail_json(msg="'export asset3': {0}, 'resource': {1}, ".format(dict_,resource_object))
                         except Exception as e:
                             module.fail_json(
                                 msg="{'assets': {0},'resource': {1},'exported': {2},'removed': {3}}".format(  # noqa: F524
