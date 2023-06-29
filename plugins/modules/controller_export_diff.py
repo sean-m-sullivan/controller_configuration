@@ -322,7 +322,7 @@ def main():
                                 if resource_object["name"] == dict_["name"] and resource_object["organization"]["name"] == dict_["organization"]["name"]:
                                     #output_list["removed"].append(awxkit_list[resource][idx])
                                     #awxkit_list[resource].pop(idx)
-                                    module.fail_json(msg="'export asset3': {0}, 'resource': {1}, ".format(dict_,resource_object))
+                                    module.fail_json(msg="'export asset3': {0}, 'resource': {1}, 'export name': {2},'resource name': {3},".format(dict_,resource_object,dict_["name"],resource_object["name"]))
                         except Exception as e:
                             module.fail_json(
                                 msg="{'assets': {0},'resource': {1},'exported': {2},'removed': {3}}".format(  # noqa: F524
