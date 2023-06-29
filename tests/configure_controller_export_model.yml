@@ -98,18 +98,18 @@
       block:
         - name: Export everything
           infra.controller_configuration.controller_export_diff:
-            all: true
+            credentials: all
             compare_items:
-              organizations: "{{ organizations }}"
-              projects: "{{ projects }}"
-              credential_types: "{{ credential_types }}"
+              #organizations: "{{ organizations }}"
+              #projects: "{{ projects }}"
+              #credential_types: "{{ credential_types }}"
               credentials: "{{ credentials }}"
-              inventory: "{{ inventory }}"
-              inventory_sources: "{{ inventory_sources }}"
-              notification_templates: "{{ notification_templates }}"
-              teams: "{{ teams }}"
-              users: "{{ users }}"
-              job_templates: "{{ job_templates }}"
+              #inventory: "{{ inventory }}"
+              #inventory_sources: "{{ inventory_sources }}"
+              #notification_templates: "{{ notification_templates }}"
+              #teams: "{{ teams }}"
+              #users: "{{ users }}"
+              #job_templates: "{{ job_templates }}"
             with_present: false
             controller_host: "{{ controller_hostname }}"
             controller_username: "{{ controller_username }}"
