@@ -85,7 +85,7 @@
       block:
         - name: Export everything
           infra.controller_configuration.controller_export_diff:
-            credentials: all
+            all: true
             compare_items:
               organizations: "{{ organizations }}"
               projects: "{{ projects }}"

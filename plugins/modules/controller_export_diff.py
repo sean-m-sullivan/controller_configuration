@@ -321,7 +321,7 @@ def main():
                                     output_list["removed"].append(awxkit_list[resource][idx])
                                     awxkit_list[resource].pop(idx)
                         except Exception as e:
-                            module.fail_json(msg="Failed to export assets {0} with resource {1}, and exported {2}".format(e, resource_object, dict_))
+                            module.fail_json(msg="Failed to match assets {0} with resource {1}, and exported {2}".format(e, resource_object, dict_))
                 # After looping through every item in the compare_items the remaining are set to absent.
                 if set_absent:
                     if awxkit_list[resource]:
