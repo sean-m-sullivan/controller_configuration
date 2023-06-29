@@ -1,0 +1,617 @@
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [Playbook to configure ansible controller post installation] **************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [Include vars from controller_configs directory] **************************
+ok: [localhost] => {"ansible_facts": {"controller_configuration_projects_async_delay": 2, "controller_configuration_projects_async_retries": 60, "controller_hostname": "controller.nas", "controller_password": "secret123", "controller_username": "admin", "controller_validate_certs": false, "credential_types": [{"description": "REST API Credential", "injectors": {"env": {"rest_password_env": "{% raw %}{  { rest_password }}{% endraw %}", "rest_username_env": "{% raw %}{  { rest_username }}{% endraw %}"}, "extra_vars": {"rest_password": "{% raw %}{  { rest_password }}{% endraw %}", "rest_username": "{% raw %}{  { rest_username }}{% endraw %}"}}, "inputs": {"fields": [{"id": "rest_username", "label": "REST Username", "type": "string"}, {"id": "rest_password", "label": "REST Password", "secret": true, "type": "string"}], "required": ["rest_username", "rest_password"]}, "kind": "cloud", "name": "REST API Credential", "natural_key": {"kind": "cloud", "name": "REST API Credential", "type": "credential_type"}}], "credentials": [{"credential_type": {"kind": "cloud", "name": "Red Hat Virtualization", "type": "credential_type"}, "description": "infra-rhvm-01 creds for inventory sources.", "inputs": {"host": "https://example.com/ovirt-engine/api", "username": "user"}, "name": "admin@internal-RHVM-01", "natural_key": {"credential_type": {"kind": "cloud", "name": "Red Hat Virtualization", "type": "credential_type"}, "name": "admin@internal-RHVM-01", "organization": {"name": "Satellite", "type": "organization"}, "type": "credential"}, "organization": {"name": "Satellite", "type": "organization"}}, {"credential_type": {"kind": "registry", "name": "Container Registry", "type": "credential_type"}, "description": "", "inputs": {"host": "hub.nas", "password": "", "username": "admin", "verify_ssl": true}, "name": "Automation Hub Container Registry", "natural_key": {"credential_type": {"kind": "registry", "name": "Container Registry", "type": "credential_type"}, "name": "Automation Hub Container Registry", "organization": null, "type": "credential"}, "organization": {"name": "Default", "type": "organization"}}, {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "description": "", "inputs": {}, "name": "AWX-Collection-tests-controller_workflow_job_template-scm-cred", "natural_key": {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "name": "AWX-Collection-tests-controller_workflow_job_template-scm-cred", "organization": {"name": "Default", "type": "organization"}, "type": "credential"}, "organization": {"name": "Default", "type": "organization"}}, {"credential_type": {"kind": "external", "name": "CyberArk Central Credential Provider Lookup", "type": "credential_type"}, "description": "CyberArk Lookup Credential", "inputs": {"url": "https://cyberark.example.com"}, "name": "cyberark", "natural_key": {"credential_type": {"kind": "external", "name": "CyberArk Central Credential Provider Lookup", "type": "credential_type"}, "name": "cyberark", "organization": {"name": "Default", "type": "organization"}, "type": "credential"}, "organization": {"name": "Default", "type": "organization"}}, {"credential_type": {"kind": "cloud", "name": "REST API Credential", "type": "credential_type"}, "description": "", "inputs": {"rest_username": "admin"}, "name": "Demo Custom Credential", "natural_key": {"credential_type": {"kind": "cloud", "name": "REST API Credential", "type": "credential_type"}, "name": "Demo Custom Credential", "organization": {"name": "Default", "type": "organization"}, "type": "credential"}, "organization": {"name": "Default", "type": "organization"}}, {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "description": "", "inputs": {"username": "username"}, "name": "gitlab", "natural_key": {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "name": "gitlab", "organization": {"name": "Default", "type": "organization"}, "type": "credential"}, "organization": {"name": "Default", "type": "organization"}}, {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "description": "General purpose token that can be used by anyone for satlab-admin(or other private) repo clone", "inputs": {"username": "gitlab"}, "name": "gitlab-personal-access-token for satqe_auto_droid", "natural_key": {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "name": "gitlab-personal-access-token for satqe_auto_droid", "organization": {"name": "Satellite", "type": "organization"}, "type": "credential"}, "organization": {"name": "Satellite", "type": "organization"}}, {"credential_type": {"kind": "ssh", "name": "Machine", "type": "credential_type"}, "description": "This credential can be used with any vm that contains jenkins_public key in authorized keys", "inputs": {"username": "root"}, "name": "machine-creds-with-jenkins-pvt-key", "natural_key": {"credential_type": {"kind": "ssh", "name": "Machine", "type": "credential_type"}, "name": "machine-creds-with-jenkins-pvt-key", "organization": {"name": "Satellite", "type": "organization"}, "type": "credential"}, "organization": {"name": "Satellite", "type": "organization"}}, {"credential_type": {"kind": "vault", "name": "Vault", "type": "credential_type"}, "description": "satlab-admin-vault password aka vault_secret", "inputs": {"vault_password": ""}, "name": "satlab-admin-vault", "natural_key": {"credential_type": {"kind": "vault", "name": "Vault", "type": "credential_type"}, "name": "satlab-admin-vault", "organization": {"name": "Satellite", "type": "organization"}, "type": "credential"}, "organization": {"name": "Satellite", "type": "organization"}}], "differential_expected": {"credential_types": [], "credentials": [{"credential_type": {"kind": "vault", "name": "Vault", "type": "credential_type"}, "description": "satlab-admin-vault ******** aka vault_secret", "inputs": {"vault_password": ""}, "name": "satlab-admin-vault", "natural_key": {"credential_type": {"kind": "vault", "name": "Vault", "type": "credential_type"}, "name": "satlab-admin-vault", "organization": {"name": "Satellite", "type": "organization"}, "type": "credential"}, "organization": {"name": "Satellite", "type": "organization"}, "state": "absent"}], "inventory": [{"description": "created by Ansible Playbook - for RHVM-02", "host_filter": null, "kind": "", "name": "RHVM-02", "natural_key": {"name": "RHVM-02", "organization": {"name": "Satellite", "type": "organization"}, "type": "inventory"}, "organization": {"name": "Satellite", "type": "organization"}, "prevent_instance_group_fallback": true, "related": {"groups": [], "hosts": [], "labels": []}, "state": "absent", "variables": "{}"}], "inventory_sources": [{"credential": {"credential_type": {"kind": "cloud", "name": "Red Hat Virtualization", "type": "credential_type"}, "name": "admin@internal-RHVM-01", "organization": {"name": "Satellite", "type": "organization"}, "type": "credential"}, "description": "", "enabled_value": "", "enabled_var": "", "execution_environment": null, "host_filter": "", "inventory": {"name": "RHVM-01", "organization": {"name": "Satellite", "type": "organization"}, "type": "inventory"}, "limit": "", "name": "RHVM-01", "natural_key": {"inventory": {"name": "RHVM-01", "organization": {"name": "Satellite", "type": "organization"}, "type": "inventory"}, "name": "RHVM-01", "type": "inventory_source"}, "overwrite": true, "overwrite_vars": false, "related": {"notification_templates_error": [], "notification_templates_started": [], "notification_templates_success": [], "schedules": []}, "scm_branch": "", "source": "scm", "source_path": "phillips_hue/hosts", "source_project": {"name": "Test Inventory source project", "organization": {"name": "Satellite", "type": "organization"}, "type": "project"}, "source_vars": "", "state": "absent", "timeout": 0, "update_cache_timeout": 0, "update_on_launch": true, "verbosity": 1}], "job_templates": [{"allow_simultaneous": false, "ask_credential_on_launch": false, "ask_diff_mode_on_launch": false, "ask_execution_environment_on_launch": true, "ask_forks_on_launch": true, "ask_instance_groups_on_launch": true, "ask_inventory_on_launch": true, "ask_job_slice_count_on_launch": true, "ask_job_type_on_launch": false, "ask_labels_on_launch": true, "ask_limit_on_launch": true, "ask_scm_branch_on_launch": false, "ask_skip_tags_on_launch": false, "ask_tags_on_launch": false, "ask_timeout_on_launch": true, "ask_variables_on_launch": false, "ask_verbosity_on_launch": false, "become_enabled": false, "description": "", "diff_mode": false, "execution_environment": {"name": "My EE", "type": "execution_environment"}, "extra_vars": "{}", "force_handlers": false, "forks": 0, "host_config_key": "", "inventory": {"name": "localhost", "organization": {"name": "Satellite", "type": "organization"}, "type": "inventory"}, "job_slice_count": 1, "job_tags": "", "job_type": "run", "limit": "", "name": "Demo Job Template", "natural_key": {"name": "Demo Job Template", "organization": {"name": "Default", "type": "organization"}, "type": "job_template"}, "playbook": "helloworld.yml", "prevent_instance_group_fallback": true, "project": {"name": "Test Project", "organization": {"name": "Default", "type": "organization"}, "type": "project"}, "related": {"credentials": [{"credential_type": {"kind": "ssh", "name": "Machine", "type": "credential_type"}, "name": "Demo Credential", "organization": null, "type": "credential"}], "labels": [], "notification_templates_error": [], "notification_templates_started": [], "notification_templates_success": [], "schedules": [{"description": "Another demonstration", "diff_mode": false, "enabled": true, "execution_environment": {"name": "My EE", "type": "execution_environment"}, "extra_data": {}, "forks": 2, "inventory": {"name": "localhost", "organization": {"name": "Satellite", "type": "organization"}, "type": "inventory"}, "job_slice_count": 1, "job_tags": "", "job_type": null, "limit": "all", "name": "Demo Schedule 2", "natural_key": {"name": "Demo Schedule 2", "type": "schedule", "unified_job_template": {"name": "Demo Job Template", "organization": {"name": "Default", "type": "organization"}, "type": "job_template"}}, "related": {"credentials": []}, "rrule": "DTSTART:20200101T000000Z RRULE:FREQ=HOURLY;INTERVAL=3", "scm_branch": "", "skip_tags": "", "timeout": 165, "unified_job_template": {"name": "Demo Job Template", "organization": {"name": "Default", "type": "organization"}, "type": "job_template"}, "verbosity": null}], "survey_spec": {"description": "", "name": "", "spec": [{"choices": "", "default": "infra-ansible-tower-testing.infra.sat.rdu2.redhat.com", "max": 1024, "min": 0, "new_question": true, "question_description": "target host is required for playbook to work, this host needs to exist in the inventory", "question_name": "Target Host", "required": true, "type": "text", "variable": "target_hosts"}]}}, "scm_branch": "", "skip_tags": "", "start_at_task": "", "state": "absent", "survey_enabled": false, "timeout": 0, "use_fact_cache": false, "verbosity": 0, "webhook_credential": null, "webhook_service": ""}], "notification_templates": [{"description": "Send out emails for tower jobs", "messages": {}, "name": "Email notification", "natural_key": {"name": "Email notification", "organization": {"name": "Default", "type": "organization"}, "type": "notification_template"}, "notification_configuration": {"host": "smtp.example.com", "password": "", "port": 25, "recipients": ["admin@example.com"], "sender": "tower0@example.com", "timeout": 30, "use_ssl": false, "use_tls": false, "username": ""}, "notification_type": "email", "organization": {"name": "Default", "type": "organization"}, "state": "absent"}], "organizations": [], "projects": [{"allow_override": false, "credential": null, "default_environment": null, "description": "ansible-examples", "local_path": "_10__test_inventory_source_project", "name": "Test Inventory source project", "natural_key": {"name": "Test Inventory source project", "organization": {"name": "Satellite", "type": "organization"}, "type": "project"}, "organization": {"name": "Satellite", "type": "organization"}, "related": {"notification_templates_error": [], "notification_templates_started": [], "notification_templates_success": []}, "scm_branch": "", "scm_clean": false, "scm_delete_on_update": false, "scm_refspec": "", "scm_track_submodules": false, "scm_type": "git", "scm_update_cache_timeout": 0, "scm_update_on_launch": false, "scm_url": "https://github.com/ansible/ansible-examples.git", "signature_validation_credential": null, "state": "absent", "timeout": 0}, {"allow_override": false, "credential": {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "name": "gitlab-personal-access-token for satqe_auto_droid", "organization": {"name": "Satellite", "type": "organization"}, "type": "credential"}, "default_environment": null, "description": "ansible-examples", "local_path": "_11__test_inventory_source_project_with_credential", "name": "Test Inventory source project with credential", "natural_key": {"name": "Test Inventory source project with credential", "organization": {"name": "Satellite", "type": "organization"}, "type": "project"}, "organization": {"name": "Satellite", "type": "organization"}, "related": {"notification_templates_error": [], "notification_templates_started": [], "notification_templates_success": []}, "scm_branch": "", "scm_clean": false, "scm_delete_on_update": false, "scm_refspec": "", "scm_track_submodules": false, "scm_type": "git", "scm_update_cache_timeout": 0, "scm_update_on_launch": false, "scm_url": "https://github.com/ansible/ansible-examples.git", "signature_validation_credential": null, "state": "absent", "timeout": 0}, {"allow_override": false, "credential": null, "default_environment": null, "description": "ansible-examples", "local_path": "_19__test_inventory_source_project", "name": "Test Inventory source project", "natural_key": {"name": "Test Inventory source project", "organization": {"name": "Default", "type": "organization"}, "type": "project"}, "organization": {"name": "Default", "type": "organization"}, "related": {"notification_templates_error": [], "notification_templates_started": [], "notification_templates_success": []}, "scm_branch": "", "scm_clean": false, "scm_delete_on_update": false, "scm_refspec": "", "scm_track_submodules": false, "scm_type": "git", "scm_update_cache_timeout": 0, "scm_update_on_launch": false, "scm_url": "https://github.com/ansible/ansible-examples.git", "signature_validation_credential": null, "state": "absent", "timeout": 0}, {"allow_override": false, "credential": {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "name": "gitlab-personal-access-token for satqe_auto_droid", "organization": {"name": "Satellite", "type": "organization"}, "type": "credential"}, "default_environment": null, "description": "ansible-examples", "local_path": "_20__test_inventory_source_project_with_credential", "name": "Test Inventory source project with credential", "natural_key": {"name": "Test Inventory source project with credential", "organization": {"name": "Default", "type": "organization"}, "type": "project"}, "organization": {"name": "Default", "type": "organization"}, "related": {"notification_templates_error": [], "notification_templates_started": [], "notification_templates_success": []}, "scm_branch": "", "scm_clean": false, "scm_delete_on_update": false, "scm_refspec": "", "scm_track_submodules": false, "scm_type": "git", "scm_update_cache_timeout": 0, "scm_update_on_launch": false, "scm_url": "https://github.com/ansible/ansible-examples.git", "signature_validation_credential": null, "state": "absent", "timeout": 0}], "teams": [{"description": "", "name": "differential-1", "natural_key": {"name": "differential-1", "organization": {"name": "Default", "type": "organization"}, "type": "team"}, "organization": {"name": "Default", "type": "organization"}, "related": {"roles": []}, "state": "absent"}], "users": [{"email": "admin@localhost", "first_name": "", "is_superuser": true, "is_system_auditor": false, "last_name": "", "natural_key": {"type": "user", "username": "admin"}, "password": "", "related": {"roles": [{"content_object": {"name": "No Survey Template no vars", "organization": {"name": "Satellite", "type": "organization"}, "type": "job_template"}, "name": "Admin", "type": "role"}, {"content_object": {"name": "Survey Template with vars no org", "organization": {"name": "Satellite", "type": "organization"}, "type": "job_template"}, "name": "Admin", "type": "role"}, {"content_object": {"name": "workflow_test_template", "organization": {"name": "Satellite", "type": "organization"}, "type": "job_template"}, "name": "Admin", "type": "role"}, {"content_object": {"credential_type": {"kind": "ssh", "name": "Machine", "type": "credential_type"}, "name": "Demo Credential", "organization": null, "type": "credential"}, "name": "Admin", "type": "role"}, {"name": "System Administrator", "type": "role"}]}, "state": "absent", "username": "admin"}]}, "inventory": [{"description": "", "host_filter": null, "kind": "", "name": "2nd Testing Inventory", "natural_key": {"name": "2nd Testing Inventory", "organization": {"name": "Satellite", "type": "organization"}, "type": "inventory"}, "organization": {"name": "Satellite", "type": "organization"}}, {"description": "", "host_filter": null, "kind": "", "name": "Testing Inventory", "natural_key": {"name": "Testing Inventory", "organization": {"name": "Satellite", "type": "organization"}, "type": "inventory"}, "organization": {"name": "Satellite", "type": "organization"}}, {"description": "Load inventory from satlab-admin hosts file", "host_filter": null, "kind": "", "name": "satlab-admin-inventory", "natural_key": {"name": "satlab-admin-inventory", "organization": {"name": "Default", "type": "organization"}, "type": "inventory"}, "organization": {"name": "Default", "type": "organization"}}, {"description": "inventory for localhost", "name": "localhost", "organization": {"name": "Satellite"}}, {"description": "created by Ansible Playbook - for RHVM-01", "name": "RHVM-01", "organization": {"name": "Satellite"}, "variables": {"remote_subnet": "{% raw %}{  % if site == 'SITE-2' %}10.100.{  % else %}10.200.{  % endif%}{% endraw %}", "site_subnet": "{% raw %}{  % if site == 'SITE-2' %}10.200.{  % else %}10.100.{  % endif%}{% endraw %}"}}, {"name": "Demo Inventory", "organization": {"name": "Default", "type": "organization"}, "prevent_instance_group_fallback": false}], "inventory_sources": [{"custom_virtualenv": null, "description": "", "group_by": "", "instance_filters": "", "inventory": {"name": "satlab-admin-inventory", "organization": {"name": "Default", "type": "organization"}, "type": "inventory"}, "name": "test", "natural_key": {"inventory": {"name": "satlab-admin-inventory", "organization": {"name": "Default", "type": "organization"}, "type": "inventory"}, "name": "test", "type": "inventory_source"}, "overwrite": false, "overwrite_vars": false, "related": {"credentials": [], "notification_templates_error": [], "notification_templates_started": [], "notification_templates_success": [], "schedules": []}, "source": "scm", "source_path": "/test.yml", "source_project": {"name": "Test Project", "organization": {"name": "Default", "type": "organization"}, "type": "project"}, "source_regions": "", "timeout": 0, "update_cache_timeout": 0, "update_on_launch": false, "verbosity": 1}], "job_templates": [{"allow_simultaneous": false, "ask_credential_on_launch": false, "ask_diff_mode_on_launch": false, "ask_inventory_on_launch": false, "ask_job_type_on_launch": false, "ask_limit_on_launch": false, "ask_scm_branch_on_launch": false, "ask_skip_tags_on_launch": false, "ask_tags_on_launch": false, "ask_variables_on_launch": false, "ask_verbosity_on_launch": false, "become_enabled": false, "custom_virtualenv": null, "description": "", "diff_mode": false, "extra_vars": "{\"empty_var\": \"nothing\"}", "force_handlers": false, "forks": 0, "host_config_key": "", "inventory": {"name": "Testing Inventory", "organization": {"name": "Satellite", "type": "organization"}, "type": "inventory"}, "job_slice_count": 1, "job_tags": "", "job_type": "run", "limit": "", "name": "No Survey Template no vars", "natural_key": {"name": "No Survey Template no vars", "organization": {"name": "Satellite", "type": "organization"}, "type": "job_template"}, "playbook": "helloworld.yml", "project": {"name": "Tower Config", "organization": {"name": "Satellite", "type": "organization"}, "type": "project"}, "related": {"credentials": [{"credential_type": {"kind": "ssh", "name": "Machine", "type": "credential_type"}, "name": "Demo Credential", "organization": null, "type": "credential"}], "labels": [], "notification_templates_error": [{"name": "irc-satqe-chat-notification", "organization": {"name": "Satellite", "type": "organization"}, "type": "notification_template"}], "notification_templates_started": [], "notification_templates_success": [], "schedules": [], "survey_spec": {}}, "scm_branch": "", "skip_tags": "", "start_at_task": "", "survey_enabled": false, "timeout": 0, "use_fact_cache": false, "verbosity": 0, "webhook_service": ""}, {"allow_simultaneous": false, "ask_credential_on_launch": false, "ask_diff_mode_on_launch": false, "ask_inventory_on_launch": false, "ask_job_type_on_launch": false, "ask_limit_on_launch": false, "ask_scm_branch_on_launch": false, "ask_skip_tags_on_launch": false, "ask_tags_on_launch": false, "ask_variables_on_launch": false, "ask_verbosity_on_launch": false, "become_enabled": false, "custom_virtualenv": null, "description": "", "diff_mode": false, "extra_vars": "{\"example_a\": \"127.0.0.1\", \"example_b\": \"text\"}", "force_handlers": false, "forks": 0, "host_config_key": "", "inventory": {"name": "Testing Inventory", "organization": {"name": "Satellite", "type": "organization"}, "type": "inventory"}, "job_slice_count": 1, "job_tags": "", "job_type": "run", "limit": "", "name": "Survey Template with vars no org", "natural_key": {"name": "Survey Template with vars no org", "organization": {"name": "Satellite", "type": "organization"}, "type": "job_template"}, "playbook": "helloworld.yml", "project": {"name": "Tower Config Testing", "organization": {"name": "Satellite", "type": "organization"}, "type": "project"}, "related": {"credentials": [{"credential_type": {"kind": "ssh", "name": "Machine", "type": "credential_type"}, "name": "Demo Credential", "organization": null, "type": "credential"}], "labels": [{"name": "Prod", "organization": {"name": "Default", "type": "organization"}}], "notification_templates_error": [{"name": "irc-satqe-chat-notification", "organization": {"name": "Satellite", "type": "organization"}, "type": "notification_template"}], "notification_templates_started": [], "notification_templates_success": [], "schedules": [], "survey_spec": {"description": "Basic Survey", "name": "Basic Survey", "spec": [{"choices": "", "default": "", "max": 128, "min": 0, "new_question": true, "question_description": "Name", "question_name": "Basic Name", "required": true, "type": "text", "variable": "basic_name"}, {"choices": "yes\nno", "default": "yes", "max": 0, "min": 0, "new_question": true, "question_description": "Choosing yes or no.", "question_name": "Choose yes or no?", "required": true, "type": "multiplechoice", "variable": "option_true_false"}, {"choices": "group1\ngroup2\ngroup3", "default": "", "max": 0, "min": 0, "new_question": true, "question_description": "", "question_name": "Select Group:", "required": true, "type": "multiselect", "variable": "target_groups"}]}}, "scm_branch": "", "skip_tags": "", "start_at_task": "", "survey_enabled": true, "timeout": 0, "use_fact_cache": false, "verbosity": 0, "webhook_service": ""}, {"allow_simultaneous": false, "ask_credential_on_launch": true, "ask_diff_mode_on_launch": true, "ask_inventory_on_launch": true, "ask_job_type_on_launch": true, "ask_limit_on_launch": true, "ask_scm_branch_on_launch": false, "ask_skip_tags_on_launch": true, "ask_tags_on_launch": true, "ask_variables_on_launch": false, "ask_verbosity_on_launch": true, "become_enabled": false, "custom_virtualenv": null, "description": "", "diff_mode": false, "extra_vars": "{\"empty_var\": \"nothing\"}", "force_handlers": false, "forks": 0, "host_config_key": "", "inventory": {"name": "Testing Inventory", "organization": {"name": "Satellite", "type": "organization"}, "type": "inventory"}, "job_slice_count": 1, "job_tags": "", "job_type": "run", "limit": "", "name": "workflow_test_template", "natural_key": {"name": "workflow_test_template", "organization": {"name": "Satellite", "type": "organization"}, "type": "job_template"}, "playbook": "helloworld.yml", "project": {"name": "Tower Config", "organization": {"name": "Satellite", "type": "organization"}, "type": "project"}, "related": {"credentials": [{"credential_type": {"kind": "ssh", "name": "Machine", "type": "credential_type"}, "name": "Demo Credential", "organization": null, "type": "credential"}], "labels": [], "notification_templates_error": [{"name": "irc-satqe-chat-notification", "organization": {"name": "Satellite", "type": "organization"}, "type": "notification_template"}], "notification_templates_started": [], "notification_templates_success": [], "schedules": [], "survey_spec": {}}, "scm_branch": "", "skip_tags": "", "start_at_task": "", "survey_enabled": false, "timeout": 0, "use_fact_cache": false, "verbosity": 0, "webhook_service": ""}], "notification_templates": [{"description": "Send out emails for tower jobs", "messages": {"error": null, "started": null, "success": null, "workflow_approval": null}, "name": "Email notification", "notification_configuration": {"host": "smtp.example.com", "password": "", "port": 25, "recipients": ["admin@example.com"], "sender": "tower0@example.com", "timeout": 30, "use_ssl": false, "use_tls": false, "username": ""}, "notification_type": "email", "organization": {"name": "Satellite", "type": "organization"}}, {"description": "Notify us on job in IRC!", "messages": {"error": null, "started": null, "success": null, "workflow_approval": null}, "name": "irc-satqe-chat-notification", "notification_configuration": {"nickname": "Ansible-Tower-Stage-Bot-01", "password": "", "port": 6667, "server": "irc.freenode.com", "targets": ["#my-channel"], "use_ssl": false, "use_tls": false}, "notification_type": "irc", "organization": {"name": "Satellite", "type": "organization"}}], "organizations": [{"custom_virtualenv": null, "description": "Satellite", "max_hosts": 0, "name": "Satellite", "related": {"notification_templates_approvals": [], "notification_templates_error": [{"name": "irc-satqe-chat-notification"}], "notification_templates_started": [], "notification_templates_success": []}}, {"custom_virtualenv": null, "default_environment": {"name": "My EE", "type": "execution_environment"}, "description": "Default", "max_hosts": 0, "name": "Default", "related": {"notification_templates_approvals": [], "notification_templates_error": [], "notification_templates_started": [], "notification_templates_success": []}}], "projects": [{"allow_override": false, "credential": {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "name": "AWX-Collection-tests-controller_workflow_job_template-scm-cred", "organization": {"name": "Default", "type": "organization"}, "type": "credential"}, "custom_virtualenv": null, "description": "", "local_path": "_48__controller_config_testing", "name": "Tower Config Testing", "organization": {"name": "Satellite", "type": "organization"}, "related": {"notification_templates_error": [{"name": "irc-satqe-chat-notification", "organization": {"name": "Satellite", "type": "organization"}, "type": "notification_template"}], "notification_templates_started": [], "notification_templates_success": [], "schedules": []}, "scm_branch": "master", "scm_clean": false, "scm_delete_on_update": false, "scm_refspec": "", "scm_type": "git", "scm_update_cache_timeout": 0, "scm_update_on_launch": false, "scm_url": "https://github.com/ansible/tower-example.git", "timeout": 0}, {"allow_override": false, "custom_virtualenv": null, "description": "", "local_path": "_52__controller_config", "name": "Tower Config", "organization": {"name": "Satellite", "type": "organization"}, "related": {"notification_templates_error": [{"name": "irc-satqe-chat-notification", "organization": {"name": "Satellite", "type": "organization"}, "type": "notification_template"}], "notification_templates_started": [], "notification_templates_success": [], "schedules": []}, "scm_branch": "master", "scm_clean": false, "scm_delete_on_update": false, "scm_refspec": "", "scm_type": "git", "scm_update_cache_timeout": 0, "scm_update_on_launch": false, "scm_url": "https://github.com/ansible/tower-example.git", "timeout": 0, "wait": true}, {"description": "Test Project 1", "name": "Test Project", "organization": {"name": "Default"}, "scm_branch": "master", "scm_clean": true, "scm_type": "git", "scm_url": "https://github.com/ansible/tower-example.git", "update_project": true, "wait": true}, {"description": "Test Project 1", "name": "Demo Project", "organization": {"name": "Default"}, "scm_branch": "master", "scm_clean": true, "scm_type": "git", "scm_url": "https://github.com/ansible/tower-example.git", "update_project": true, "wait": true}, {"description": "Test Project 2", "name": "Test Project 2", "organization": {"name": "Default"}, "scm_type": "git", "scm_url": "https://github.com/ansible/ansible-examples.git"}], "teams": [{"description": "", "name": "team1", "natural_key": {"name": "team1", "organization": {"name": "Satellite", "type": "organization"}, "type": "team"}, "organization": {"name": "Satellite", "type": "organization"}, "related": {"roles": [{"content_object": {"name": "Survey Template with vars no org", "organization": {"name": "Satellite", "type": "organization"}, "type": "job_template"}, "name": "Admin", "type": "role"}, {"content_object": {"name": "No Survey Template no vars", "organization": {"name": "Satellite", "type": "organization"}, "type": "job_template"}, "name": "Admin", "type": "role"}, {"content_object": {"name": "workflow_test_template", "organization": {"name": "Satellite", "type": "organization"}, "type": "job_template"}, "name": "Admin", "type": "role"}, {"content_object": {"name": "Tower Config Testing", "organization": {"name": "Satellite", "type": "organization"}, "type": "project"}, "name": "Admin", "type": "role"}, {"content_object": {"name": "Tower Config", "organization": {"name": "Satellite", "type": "organization"}, "type": "project"}, "name": "Admin", "type": "role"}, {"content_object": {"name": "Complicated Schema Workflow", "organization": {"name": "Satellite", "type": "organization"}, "type": "workflow_job_template"}, "name": "Admin", "type": "role"}, {"content_object": {"name": "Simple workflow schema", "organization": {"name": "Satellite", "type": "organization"}, "type": "workflow_job_template"}, "name": "Admin", "type": "role"}, {"content_object": {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "name": "gitlab", "organization": {"name": "Satellite", "type": "organization"}, "type": "credential"}, "name": "Admin", "type": "role"}, {"content_object": {"name": "2nd Testing Inventory", "organization": {"name": "Satellite", "type": "organization"}, "type": "inventory"}, "name": "Admin", "type": "role"}, {"content_object": {"name": "Testing Inventory", "organization": {"name": "Satellite", "type": "organization"}, "type": "inventory"}, "name": "Admin", "type": "role"}, {"content_object": {"name": "Satellite", "type": "organization"}, "name": "Project Admin", "type": "role"}, {"content_object": {"name": "Satellite", "type": "organization"}, "name": "Project Admin", "type": "role"}]}}, {"name": "satellite-qe", "organization": {"name": "Satellite"}}, {"name": "satlab-admin", "organization": {"name": "Satellite"}}], "users": [{"email": "joe@example.org", "first_name": "Joe", "is_superuser": false, "is_system_auditor": false, "last_name": "User", "natural_key": {"type": "user", "username": "AWX-Collection-tests-controller_role-user"}, "password": "controller_password", "related": {"roles": [{"content_object": {"name": "test-role-workflow", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}, "name": "Execute", "type": "role"}]}, "username": "AWX-Collection-tests-controller_role-user"}, {"email": "joe@example.org", "first_name": "Joe", "is_superuser": false, "is_system_auditor": false, "last_name": "User", "natural_key": {"type": "user", "username": "AWX-Collection-tests-controller_role-user-ClPzjxrRTIwcOCvO"}, "password": "controller_password", "related": {"roles": []}, "username": "AWX-Collection-tests-controller_role-user-ClPzjxrRTIwcOCvO"}, {"is_superuser": true, "username": "controller_user"}], "workflow_job_templates": [{"allow_simultaneous": false, "ask_inventory_on_launch": false, "ask_limit_on_launch": false, "ask_scm_branch_on_launch": false, "ask_variables_on_launch": false, "description": "a complicated workflow", "extra_vars": {}, "limit": null, "name": "Complicated workflow schema", "natural_key": {"name": "Complicated workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}, "organization": {"name": "Default", "type": "organization"}, "related": {"labels": [{"name": "Prod", "organization": {"name": "Default", "type": "organization"}}], "notification_templates_approvals": [], "notification_templates_error": [], "notification_templates_started": [], "notification_templates_success": [], "schedules": [], "survey_spec": {"description": "", "name": "", "spec": [{"choices": "", "default": "", "max": 1024, "min": 0, "new_question": true, "question_description": "Name", "question_name": "Basic Name", "required": true, "type": "text", "variable": "basic_name"}, {"choices": "yes\nno", "default": "yes", "max": null, "min": null, "new_question": true, "question_description": "Choosing yes or no.", "question_name": "Choose yes or no?", "required": false, "type": "multiplechoice", "variable": "option_true_false"}, {"choices": "group1\ngroup2\ngroup3", "default": "", "max": null, "min": null, "new_question": true, "question_description": "", "question_name": "Select Group:", "required": true, "type": "multiplechoice", "variable": "target_groups"}]}, "workflow_nodes": [{"all_parents_must_converge": false, "identifier": "d9779889-cfdb-4a8c-8a11-1f54acf84aca", "natural_key": {"identifier": "d9779889-cfdb-4a8c-8a11-1f54acf84aca", "type": "workflow_job_template_node", "workflow_job_template": {"name": "Complicated workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}, "related": {"always_nodes": [], "credentials": [], "failure_nodes": [], "success_nodes": [{"identifier": "f82f1c5f-c3b5-4bc4-9e1a-d8cd1ab44c44", "type": "workflow_job_template_node", "workflow_job_template": {"name": "Complicated workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}, {"identifier": "ca7ffc3b-8401-4153-83bf-bb3dd918ca87", "type": "workflow_job_template_node", "workflow_job_template": {"name": "Complicated workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}]}, "unified_job_template": {"inventory": {"name": "RHVM-01", "organization": {"name": "Satellite", "type": "organization"}, "type": "inventory"}, "name": "RHVM-01", "type": "inventory_source"}, "workflow_job_template": {"name": "Complicated workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}, {"all_parents_must_converge": false, "identifier": "f82f1c5f-c3b5-4bc4-9e1a-d8cd1ab44c44", "natural_key": {"identifier": "f82f1c5f-c3b5-4bc4-9e1a-d8cd1ab44c44", "type": "workflow_job_template_node", "workflow_job_template": {"name": "Complicated workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}, "related": {"always_nodes": [{"identifier": "046378e5-ff53-4168-afc2-a82d87327099", "type": "workflow_job_template_node", "workflow_job_template": {"name": "Complicated workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}], "credentials": [], "failure_nodes": [{"identifier": "28910097-e606-4252-8aa9-2c1a0b8b6c92", "type": "workflow_job_template_node", "workflow_job_template": {"name": "Complicated workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}], "success_nodes": []}, "unified_job_template": {"name": "workflow_test_template", "organization": {"name": "Satellite", "type": "organization"}, "type": "job_template"}, "workflow_job_template": {"name": "Complicated workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}, {"all_parents_must_converge": false, "identifier": "28910097-e606-4252-8aa9-2c1a0b8b6c92", "natural_key": {"identifier": "28910097-e606-4252-8aa9-2c1a0b8b6c92", "type": "workflow_job_template_node", "workflow_job_template": {"name": "Complicated workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}, "related": {"always_nodes": [], "credentials": [], "failure_nodes": [], "success_nodes": []}, "unified_job_template": {"name": "workflow_test_template", "organization": {"name": "Satellite", "type": "organization"}, "type": "job_template"}, "workflow_job_template": {"name": "Complicated workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}, {"all_parents_must_converge": true, "identifier": "ca7ffc3b-8401-4153-83bf-bb3dd918ca87", "natural_key": {"identifier": "ca7ffc3b-8401-4153-83bf-bb3dd918ca87", "type": "workflow_job_template_node", "workflow_job_template": {"name": "Complicated workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}, "related": {"always_nodes": [], "credentials": [], "failure_nodes": [], "success_nodes": []}, "unified_job_template": {"name": "Demo Job Template", "organization": {"name": "Default", "type": "organization"}, "type": "job_template"}, "workflow_job_template": {"name": "Complicated workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}, {"all_parents_must_converge": false, "identifier": "046378e5-ff53-4168-afc2-a82d87327099", "natural_key": {"identifier": "046378e5-ff53-4168-afc2-a82d87327099", "type": "workflow_job_template_node", "workflow_job_template": {"name": "Complicated workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}, "related": {"always_nodes": [{"identifier": "ca7ffc3b-8401-4153-83bf-bb3dd918ca87", "type": "workflow_job_template_node", "workflow_job_template": {"name": "Complicated workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}, {"identifier": "node401"}], "credentials": [], "failure_nodes": [], "success_nodes": []}, "unified_job_template": {"name": "Demo Job Template", "organization": {"name": "Default", "type": "organization"}, "type": "job_template"}, "workflow_job_template": {"name": "Complicated workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}, {"identifier": "node401", "unified_job_template": {"description": "Approve this to continue", "name": "Approval to Continue", "timeout": 900, "type": "workflow_approval"}}]}, "scm_branch": null, "state": "present", "survey_enabled": true}, {"allow_simultaneous": false, "ask_inventory_on_launch": false, "ask_limit_on_launch": false, "ask_scm_branch_on_launch": false, "ask_variables_on_launch": false, "description": "a basic workflow", "extra_vars": {}, "name": "Simple workflow schema", "natural_key": {"name": "Simple workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}, "organization": {"name": "Default", "type": "organization"}, "related": {"labels": [], "notification_templates_approvals": [], "notification_templates_error": [], "notification_templates_started": [], "notification_templates_success": [], "schedules": [], "survey_spec": {}, "workflow_nodes": [{"all_parents_must_converge": false, "identifier": "d9779889-cfdb-4a8c-8a11-1f54acf84aca", "natural_key": {"identifier": "d9779889-cfdb-4a8c-8a11-1f54acf84aca", "type": "workflow_job_template_node", "workflow_job_template": {"name": "Simple workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}, "related": {"always_nodes": [], "credentials": [], "failure_nodes": [], "success_nodes": [{"identifier": "f82f1c5f-c3b5-4bc4-9e1a-d8cd1ab44c44", "type": "workflow_job_template_node", "workflow_job_template": {"name": "Simple workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}]}, "unified_job_template": {"inventory": {"name": "RHVM-01", "organization": {"name": "Satellite", "type": "organization"}, "type": "inventory"}, "name": "RHVM-01", "type": "inventory_source"}, "workflow_job_template": {"name": "Simple workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}, {"all_parents_must_converge": false, "identifier": "f82f1c5f-c3b5-4bc4-9e1a-d8cd1ab44c44", "natural_key": {"identifier": "f82f1c5f-c3b5-4bc4-9e1a-d8cd1ab44c44", "type": "workflow_job_template_node", "workflow_job_template": {"name": "Simple workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}, "related": {"always_nodes": [], "credentials": [], "failure_nodes": [], "success_nodes": []}, "unified_job_template": {"name": "workflow_test_template", "organization": {"name": "Satellite", "type": "organization"}, "type": "job_template"}, "workflow_job_template": {"name": "Simple workflow schema", "organization": {"name": "Default", "type": "organization"}, "type": "workflow_job_template"}}]}, "state": "present", "survey_enabled": false}]}, "ansible_included_var_files": ["/home/excalibrax/Documents/work/controller_configuration/tests/./configs_export_model/auth.yml", "/home/excalibrax/Documents/work/controller_configuration/tests/./configs_export_model/credential_types_export.yml", "/home/excalibrax/Documents/work/controller_configuration/tests/./configs_export_model/credentials_export.yml", "/home/excalibrax/Documents/work/controller_configuration/tests/./configs_export_model/differential_items.yml", "/home/excalibrax/Documents/work/controller_configuration/tests/./configs_export_model/inventory_export.yml", "/home/excalibrax/Documents/work/controller_configuration/tests/./configs_export_model/inventory_sources_export.yml", "/home/excalibrax/Documents/work/controller_configuration/tests/./configs_export_model/job_templates_export.yml", "/home/excalibrax/Documents/work/controller_configuration/tests/./configs_export_model/notifications_templates_export.yml", "/home/excalibrax/Documents/work/controller_configuration/tests/./configs_export_model/organizations_export.yml", "/home/excalibrax/Documents/work/controller_configuration/tests/./configs_export_model/projects_export.yml", "/home/excalibrax/Documents/work/controller_configuration/tests/./configs_export_model/teams_export.yml", "/home/excalibrax/Documents/work/controller_configuration/tests/./configs_export_model/users_export.yml", "/home/excalibrax/Documents/work/controller_configuration/tests/./configs_export_model/workflows.yml"], "changed": false}
+
+TASK [Export workflow job template] ********************************************
+ok: [localhost] => {"changed": false, "controller_objects": {"credentials": [{"credential_type": {"kind": "cloud", "name": "Red Hat Virtualization", "type": "credential_type"}, "description": "infra-rhvm-01 creds for inventory sources.", "inputs": {"host": "https://example.com/ovirt-engine/api", "username": "user"}, "name": "admin@internal-RHVM-01", "natural_key": {"credential_type": {"kind": "cloud", "name": "Red Hat Virtualization", "type": "credential_type"}, "name": "admin@internal-RHVM-01", "organization": {"name": "Satellite", "type": "organization"}, "type": "credential"}, "organization": {"name": "Satellite", "type": "organization"}}, {"credential_type": {"kind": "registry", "name": "Container Registry", "type": "credential_type"}, "description": "", "inputs": {"host": "hub.nas", "username": "admin", "verify_ssl": true}, "name": "Automation Hub Container Registry", "natural_key": {"credential_type": {"kind": "registry", "name": "Container Registry", "type": "credential_type"}, "name": "Automation Hub Container Registry", "organization": {"name": "Default", "type": "organization"}, "type": "credential"}, "organization": {"name": "Default", "type": "organization"}}, {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "description": "", "inputs": {}, "name": "AWX-Collection-tests-controller_workflow_job_template-scm-cred", "natural_key": {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "name": "AWX-Collection-tests-controller_workflow_job_template-scm-cred", "organization": {"name": "Default", "type": "organization"}, "type": "credential"}, "organization": {"name": "Default", "type": "organization"}}, {"credential_type": {"kind": "external", "name": "CyberArk Central Credential Provider Lookup", "type": "credential_type"}, "description": "CyberArk Lookup Credential", "inputs": {"url": "https://cyberark.example.com"}, "name": "cyberark", "natural_key": {"credential_type": {"kind": "external", "name": "CyberArk Central Credential Provider Lookup", "type": "credential_type"}, "name": "cyberark", "organization": {"name": "Default", "type": "organization"}, "type": "credential"}, "organization": {"name": "Default", "type": "organization"}}, {"credential_type": {"kind": "ssh", "name": "Machine", "type": "credential_type"}, "description": "", "inputs": {"username": "admin"}, "name": "Demo Credential", "natural_key": {"credential_type": {"kind": "ssh", "name": "Machine", "type": "credential_type"}, "name": "Demo Credential", "organization": null, "type": "credential"}, "organization": null, "user": {"type": "user", "username": "admin"}}, {"credential_type": {"kind": "cloud", "name": "REST API Credential", "type": "credential_type"}, "description": "", "inputs": {"rest_username": "admin"}, "name": "Demo Custom Credential", "natural_key": {"credential_type": {"kind": "cloud", "name": "REST API Credential", "type": "credential_type"}, "name": "Demo Custom Credential", "organization": {"name": "Default", "type": "organization"}, "type": "credential"}, "organization": {"name": "Default", "type": "organization"}}, {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "description": "", "inputs": {"username": "username"}, "name": "gitlab", "natural_key": {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "name": "gitlab", "organization": {"name": "Default", "type": "organization"}, "type": "credential"}, "organization": {"name": "Default", "type": "organization"}}, {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "description": "General purpose token that can be used by anyone for satlab-admin(or other private) repo clone", "inputs": {"username": "gitlab"}, "name": "gitlab-personal-access-token for satqe_auto_droid", "natural_key": {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "name": "gitlab-personal-access-token for satqe_auto_droid", "organization": {"name": "Satellite", "type": "organization"}, "type": "credential"}, "organization": {"name": "Satellite", "type": "organization"}}, {"credential_type": {"kind": "ssh", "name": "Machine", "type": "credential_type"}, "description": "This credential can be used with any vm that contains jenkins_public key in authorized keys", "inputs": {"username": "root"}, "name": "machine-creds-with-jenkins-pvt-key", "natural_key": {"credential_type": {"kind": "ssh", "name": "Machine", "type": "credential_type"}, "name": "machine-creds-with-jenkins-pvt-key", "organization": {"name": "Satellite", "type": "organization"}, "type": "credential"}, "organization": {"name": "Satellite", "type": "organization"}}, {"credential_type": {"kind": "vault", "name": "Vault", "type": "credential_type"}, "description": "satlab-admin-vault password aka vault_secret", "inputs": {}, "name": "satlab-admin-vault", "natural_key": {"credential_type": {"kind": "vault", "name": "Vault", "type": "credential_type"}, "name": "satlab-admin-vault", "organization": {"name": "Satellite", "type": "organization"}, "type": "credential"}, "organization": {"name": "Satellite", "type": "organization"}}]}, "difference": {"credentials": [{"credential_type": {"kind": "ssh", "name": "Machine", "type": "credential_type"}, "description": "", "inputs": {"username": "admin"}, "name": "Demo Credential", "natural_key": {"credential_type": {"kind": "ssh", "name": "Machine", "type": "credential_type"}, "name": "Demo Credential", "organization": null, "type": "credential"}, "organization": null, "state": "absent", "user": {"type": "user", "username": "admin"}}], "removed": [{"credential_type": {"kind": "cloud", "name": "Red Hat Virtualization", "type": "credential_type"}, "description": "infra-rhvm-01 creds for inventory sources.", "inputs": {"host": "https://example.com/ovirt-engine/api", "username": "user"}, "name": "admin@internal-RHVM-01", "natural_key": {"credential_type": {"kind": "cloud", "name": "Red Hat Virtualization", "type": "credential_type"}, "name": "admin@internal-RHVM-01", "organization": {"name": "Satellite", "type": "organization"}, "type": "credential"}, "organization": {"name": "Satellite", "type": "organization"}}, {"credential_type": {"kind": "registry", "name": "Container Registry", "type": "credential_type"}, "description": "", "inputs": {"host": "hub.nas", "username": "admin", "verify_ssl": true}, "name": "Automation Hub Container Registry", "natural_key": {"credential_type": {"kind": "registry", "name": "Container Registry", "type": "credential_type"}, "name": "Automation Hub Container Registry", "organization": {"name": "Default", "type": "organization"}, "type": "credential"}, "organization": {"name": "Default", "type": "organization"}}, {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "description": "", "inputs": {}, "name": "AWX-Collection-tests-controller_workflow_job_template-scm-cred", "natural_key": {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "name": "AWX-Collection-tests-controller_workflow_job_template-scm-cred", "organization": {"name": "Default", "type": "organization"}, "type": "credential"}, "organization": {"name": "Default", "type": "organization"}}, {"credential_type": {"kind": "external", "name": "CyberArk Central Credential Provider Lookup", "type": "credential_type"}, "description": "CyberArk Lookup Credential", "inputs": {"url": "https://cyberark.example.com"}, "name": "cyberark", "natural_key": {"credential_type": {"kind": "external", "name": "CyberArk Central Credential Provider Lookup", "type": "credential_type"}, "name": "cyberark", "organization": {"name": "Default", "type": "organization"}, "type": "credential"}, "organization": {"name": "Default", "type": "organization"}}, {"credential_type": {"kind": "cloud", "name": "REST API Credential", "type": "credential_type"}, "description": "", "inputs": {"rest_username": "admin"}, "name": "Demo Custom Credential", "natural_key": {"credential_type": {"kind": "cloud", "name": "REST API Credential", "type": "credential_type"}, "name": "Demo Custom Credential", "organization": {"name": "Default", "type": "organization"}, "type": "credential"}, "organization": {"name": "Default", "type": "organization"}}, {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "description": "", "inputs": {"username": "username"}, "name": "gitlab", "natural_key": {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "name": "gitlab", "organization": {"name": "Default", "type": "organization"}, "type": "credential"}, "organization": {"name": "Default", "type": "organization"}}, {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "description": "General purpose token that can be used by anyone for satlab-admin(or other private) repo clone", "inputs": {"username": "gitlab"}, "name": "gitlab-personal-access-token for satqe_auto_droid", "natural_key": {"credential_type": {"kind": "scm", "name": "Source Control", "type": "credential_type"}, "name": "gitlab-personal-access-token for satqe_auto_droid", "organization": {"name": "Satellite", "type": "organization"}, "type": "credential"}, "organization": {"name": "Satellite", "type": "organization"}}, {"credential_type": {"kind": "ssh", "name": "Machine", "type": "credential_type"}, "description": "This credential can be used with any vm that contains jenkins_public key in authorized keys", "inputs": {"username": "root"}, "name": "machine-creds-with-jenkins-pvt-key", "natural_key": {"credential_type": {"kind": "ssh", "name": "Machine", "type": "credential_type"}, "name": "machine-creds-with-jenkins-pvt-key", "organization": {"name": "Satellite", "type": "organization"}, "type": "credential"}, "organization": {"name": "Satellite", "type": "organization"}}, {"credential_type": {"kind": "vault", "name": "Vault", "type": "credential_type"}, "description": "satlab-admin-vault password aka vault_secret", "inputs": {}, "name": "satlab-admin-vault", "natural_key": {"credential_type": {"kind": "vault", "name": "Vault", "type": "credential_type"}, "name": "satlab-admin-vault", "organization": {"name": "Satellite", "type": "organization"}, "type": "credential"}, "organization": {"name": "Satellite", "type": "organization"}}]}}
+
+TASK [Export output] ***********************************************************
+ok: [localhost] => {
+    "export_results": {
+        "changed": false,
+        "controller_objects": {
+            "credentials": [
+                {
+                    "credential_type": {
+                        "kind": "cloud",
+                        "name": "Red Hat Virtualization",
+                        "type": "credential_type"
+                    },
+                    "description": "infra-rhvm-01 creds for inventory sources.",
+                    "inputs": {
+                        "host": "https://example.com/ovirt-engine/api",
+                        "username": "user"
+                    },
+                    "name": "admin@internal-RHVM-01",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "cloud",
+                            "name": "Red Hat Virtualization",
+                            "type": "credential_type"
+                        },
+                        "name": "admin@internal-RHVM-01",
+                        "organization": {
+                            "name": "Satellite",
+                            "type": "organization"
+                        },
+                        "type": "credential"
+                    },
+                    "organization": {
+                        "name": "Satellite",
+                        "type": "organization"
+                    }
+                },
+                {
+                    "credential_type": {
+                        "kind": "registry",
+                        "name": "Container Registry",
+                        "type": "credential_type"
+                    },
+                    "description": "",
+                    "inputs": {
+                        "host": "hub.nas",
+                        "username": "admin",
+                        "verify_ssl": true
+                    },
+                    "name": "Automation Hub Container Registry",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "registry",
+                            "name": "Container Registry",
+                            "type": "credential_type"
+                        },
+                        "name": "Automation Hub Container Registry",
+                        "organization": {
+                            "name": "Default",
+                            "type": "organization"
+                        },
+                        "type": "credential"
+                    },
+                    "organization": {
+                        "name": "Default",
+                        "type": "organization"
+                    }
+                },
+                {
+                    "credential_type": {
+                        "kind": "scm",
+                        "name": "Source Control",
+                        "type": "credential_type"
+                    },
+                    "description": "",
+                    "inputs": {},
+                    "name": "AWX-Collection-tests-controller_workflow_job_template-scm-cred",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "scm",
+                            "name": "Source Control",
+                            "type": "credential_type"
+                        },
+                        "name": "AWX-Collection-tests-controller_workflow_job_template-scm-cred",
+                        "organization": {
+                            "name": "Default",
+                            "type": "organization"
+                        },
+                        "type": "credential"
+                    },
+                    "organization": {
+                        "name": "Default",
+                        "type": "organization"
+                    }
+                },
+                {
+                    "credential_type": {
+                        "kind": "external",
+                        "name": "CyberArk Central Credential Provider Lookup",
+                        "type": "credential_type"
+                    },
+                    "description": "CyberArk Lookup Credential",
+                    "inputs": {
+                        "url": "https://cyberark.example.com"
+                    },
+                    "name": "cyberark",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "external",
+                            "name": "CyberArk Central Credential Provider Lookup",
+                            "type": "credential_type"
+                        },
+                        "name": "cyberark",
+                        "organization": {
+                            "name": "Default",
+                            "type": "organization"
+                        },
+                        "type": "credential"
+                    },
+                    "organization": {
+                        "name": "Default",
+                        "type": "organization"
+                    }
+                },
+                {
+                    "credential_type": {
+                        "kind": "ssh",
+                        "name": "Machine",
+                        "type": "credential_type"
+                    },
+                    "description": "",
+                    "inputs": {
+                        "username": "admin"
+                    },
+                    "name": "Demo Credential",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "ssh",
+                            "name": "Machine",
+                            "type": "credential_type"
+                        },
+                        "name": "Demo Credential",
+                        "organization": null,
+                        "type": "credential"
+                    },
+                    "organization": null,
+                    "user": {
+                        "type": "user",
+                        "username": "admin"
+                    }
+                },
+                {
+                    "credential_type": {
+                        "kind": "cloud",
+                        "name": "REST API Credential",
+                        "type": "credential_type"
+                    },
+                    "description": "",
+                    "inputs": {
+                        "rest_username": "admin"
+                    },
+                    "name": "Demo Custom Credential",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "cloud",
+                            "name": "REST API Credential",
+                            "type": "credential_type"
+                        },
+                        "name": "Demo Custom Credential",
+                        "organization": {
+                            "name": "Default",
+                            "type": "organization"
+                        },
+                        "type": "credential"
+                    },
+                    "organization": {
+                        "name": "Default",
+                        "type": "organization"
+                    }
+                },
+                {
+                    "credential_type": {
+                        "kind": "scm",
+                        "name": "Source Control",
+                        "type": "credential_type"
+                    },
+                    "description": "",
+                    "inputs": {
+                        "username": "username"
+                    },
+                    "name": "gitlab",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "scm",
+                            "name": "Source Control",
+                            "type": "credential_type"
+                        },
+                        "name": "gitlab",
+                        "organization": {
+                            "name": "Default",
+                            "type": "organization"
+                        },
+                        "type": "credential"
+                    },
+                    "organization": {
+                        "name": "Default",
+                        "type": "organization"
+                    }
+                },
+                {
+                    "credential_type": {
+                        "kind": "scm",
+                        "name": "Source Control",
+                        "type": "credential_type"
+                    },
+                    "description": "General purpose token that can be used by anyone for satlab-admin(or other private) repo clone",
+                    "inputs": {
+                        "username": "gitlab"
+                    },
+                    "name": "gitlab-personal-access-token for satqe_auto_droid",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "scm",
+                            "name": "Source Control",
+                            "type": "credential_type"
+                        },
+                        "name": "gitlab-personal-access-token for satqe_auto_droid",
+                        "organization": {
+                            "name": "Satellite",
+                            "type": "organization"
+                        },
+                        "type": "credential"
+                    },
+                    "organization": {
+                        "name": "Satellite",
+                        "type": "organization"
+                    }
+                },
+                {
+                    "credential_type": {
+                        "kind": "ssh",
+                        "name": "Machine",
+                        "type": "credential_type"
+                    },
+                    "description": "This credential can be used with any vm that contains jenkins_public key in authorized keys",
+                    "inputs": {
+                        "username": "root"
+                    },
+                    "name": "machine-creds-with-jenkins-pvt-key",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "ssh",
+                            "name": "Machine",
+                            "type": "credential_type"
+                        },
+                        "name": "machine-creds-with-jenkins-pvt-key",
+                        "organization": {
+                            "name": "Satellite",
+                            "type": "organization"
+                        },
+                        "type": "credential"
+                    },
+                    "organization": {
+                        "name": "Satellite",
+                        "type": "organization"
+                    }
+                },
+                {
+                    "credential_type": {
+                        "kind": "vault",
+                        "name": "Vault",
+                        "type": "credential_type"
+                    },
+                    "description": "satlab-admin-vault password aka vault_secret",
+                    "inputs": {},
+                    "name": "satlab-admin-vault",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "vault",
+                            "name": "Vault",
+                            "type": "credential_type"
+                        },
+                        "name": "satlab-admin-vault",
+                        "organization": {
+                            "name": "Satellite",
+                            "type": "organization"
+                        },
+                        "type": "credential"
+                    },
+                    "organization": {
+                        "name": "Satellite",
+                        "type": "organization"
+                    }
+                }
+            ]
+        },
+        "difference": {
+            "credentials": [
+                {
+                    "credential_type": {
+                        "kind": "ssh",
+                        "name": "Machine",
+                        "type": "credential_type"
+                    },
+                    "description": "",
+                    "inputs": {
+                        "username": "admin"
+                    },
+                    "name": "Demo Credential",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "ssh",
+                            "name": "Machine",
+                            "type": "credential_type"
+                        },
+                        "name": "Demo Credential",
+                        "organization": null,
+                        "type": "credential"
+                    },
+                    "organization": null,
+                    "state": "absent",
+                    "user": {
+                        "type": "user",
+                        "username": "admin"
+                    }
+                }
+            ],
+            "removed": [
+                {
+                    "credential_type": {
+                        "kind": "cloud",
+                        "name": "Red Hat Virtualization",
+                        "type": "credential_type"
+                    },
+                    "description": "infra-rhvm-01 creds for inventory sources.",
+                    "inputs": {
+                        "host": "https://example.com/ovirt-engine/api",
+                        "username": "user"
+                    },
+                    "name": "admin@internal-RHVM-01",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "cloud",
+                            "name": "Red Hat Virtualization",
+                            "type": "credential_type"
+                        },
+                        "name": "admin@internal-RHVM-01",
+                        "organization": {
+                            "name": "Satellite",
+                            "type": "organization"
+                        },
+                        "type": "credential"
+                    },
+                    "organization": {
+                        "name": "Satellite",
+                        "type": "organization"
+                    }
+                },
+                {
+                    "credential_type": {
+                        "kind": "registry",
+                        "name": "Container Registry",
+                        "type": "credential_type"
+                    },
+                    "description": "",
+                    "inputs": {
+                        "host": "hub.nas",
+                        "username": "admin",
+                        "verify_ssl": true
+                    },
+                    "name": "Automation Hub Container Registry",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "registry",
+                            "name": "Container Registry",
+                            "type": "credential_type"
+                        },
+                        "name": "Automation Hub Container Registry",
+                        "organization": {
+                            "name": "Default",
+                            "type": "organization"
+                        },
+                        "type": "credential"
+                    },
+                    "organization": {
+                        "name": "Default",
+                        "type": "organization"
+                    }
+                },
+                {
+                    "credential_type": {
+                        "kind": "scm",
+                        "name": "Source Control",
+                        "type": "credential_type"
+                    },
+                    "description": "",
+                    "inputs": {},
+                    "name": "AWX-Collection-tests-controller_workflow_job_template-scm-cred",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "scm",
+                            "name": "Source Control",
+                            "type": "credential_type"
+                        },
+                        "name": "AWX-Collection-tests-controller_workflow_job_template-scm-cred",
+                        "organization": {
+                            "name": "Default",
+                            "type": "organization"
+                        },
+                        "type": "credential"
+                    },
+                    "organization": {
+                        "name": "Default",
+                        "type": "organization"
+                    }
+                },
+                {
+                    "credential_type": {
+                        "kind": "external",
+                        "name": "CyberArk Central Credential Provider Lookup",
+                        "type": "credential_type"
+                    },
+                    "description": "CyberArk Lookup Credential",
+                    "inputs": {
+                        "url": "https://cyberark.example.com"
+                    },
+                    "name": "cyberark",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "external",
+                            "name": "CyberArk Central Credential Provider Lookup",
+                            "type": "credential_type"
+                        },
+                        "name": "cyberark",
+                        "organization": {
+                            "name": "Default",
+                            "type": "organization"
+                        },
+                        "type": "credential"
+                    },
+                    "organization": {
+                        "name": "Default",
+                        "type": "organization"
+                    }
+                },
+                {
+                    "credential_type": {
+                        "kind": "cloud",
+                        "name": "REST API Credential",
+                        "type": "credential_type"
+                    },
+                    "description": "",
+                    "inputs": {
+                        "rest_username": "admin"
+                    },
+                    "name": "Demo Custom Credential",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "cloud",
+                            "name": "REST API Credential",
+                            "type": "credential_type"
+                        },
+                        "name": "Demo Custom Credential",
+                        "organization": {
+                            "name": "Default",
+                            "type": "organization"
+                        },
+                        "type": "credential"
+                    },
+                    "organization": {
+                        "name": "Default",
+                        "type": "organization"
+                    }
+                },
+                {
+                    "credential_type": {
+                        "kind": "scm",
+                        "name": "Source Control",
+                        "type": "credential_type"
+                    },
+                    "description": "",
+                    "inputs": {
+                        "username": "username"
+                    },
+                    "name": "gitlab",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "scm",
+                            "name": "Source Control",
+                            "type": "credential_type"
+                        },
+                        "name": "gitlab",
+                        "organization": {
+                            "name": "Default",
+                            "type": "organization"
+                        },
+                        "type": "credential"
+                    },
+                    "organization": {
+                        "name": "Default",
+                        "type": "organization"
+                    }
+                },
+                {
+                    "credential_type": {
+                        "kind": "scm",
+                        "name": "Source Control",
+                        "type": "credential_type"
+                    },
+                    "description": "General purpose token that can be used by anyone for satlab-admin(or other private) repo clone",
+                    "inputs": {
+                        "username": "gitlab"
+                    },
+                    "name": "gitlab-personal-access-token for satqe_auto_droid",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "scm",
+                            "name": "Source Control",
+                            "type": "credential_type"
+                        },
+                        "name": "gitlab-personal-access-token for satqe_auto_droid",
+                        "organization": {
+                            "name": "Satellite",
+                            "type": "organization"
+                        },
+                        "type": "credential"
+                    },
+                    "organization": {
+                        "name": "Satellite",
+                        "type": "organization"
+                    }
+                },
+                {
+                    "credential_type": {
+                        "kind": "ssh",
+                        "name": "Machine",
+                        "type": "credential_type"
+                    },
+                    "description": "This credential can be used with any vm that contains jenkins_public key in authorized keys",
+                    "inputs": {
+                        "username": "root"
+                    },
+                    "name": "machine-creds-with-jenkins-pvt-key",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "ssh",
+                            "name": "Machine",
+                            "type": "credential_type"
+                        },
+                        "name": "machine-creds-with-jenkins-pvt-key",
+                        "organization": {
+                            "name": "Satellite",
+                            "type": "organization"
+                        },
+                        "type": "credential"
+                    },
+                    "organization": {
+                        "name": "Satellite",
+                        "type": "organization"
+                    }
+                },
+                {
+                    "credential_type": {
+                        "kind": "vault",
+                        "name": "Vault",
+                        "type": "credential_type"
+                    },
+                    "description": "satlab-admin-vault password aka vault_secret",
+                    "inputs": {},
+                    "name": "satlab-admin-vault",
+                    "natural_key": {
+                        "credential_type": {
+                            "kind": "vault",
+                            "name": "Vault",
+                            "type": "credential_type"
+                        },
+                        "name": "satlab-admin-vault",
+                        "organization": {
+                            "name": "Satellite",
+                            "type": "organization"
+                        },
+                        "type": "credential"
+                    },
+                    "organization": {
+                        "name": "Satellite",
+                        "type": "organization"
+                    }
+                }
+            ]
+        },
+        "failed": false
+    }
+}
+
+TASK [Assert that the expected results match for {{ differential_item.name }}] ***
+fatal: [localhost]: FAILED! => {
+    "assertion": "differential_expected ==  export_results.difference",
+    "changed": false,
+    "evaluated_to": false,
+    "msg": "Assertion failed"
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=4    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
