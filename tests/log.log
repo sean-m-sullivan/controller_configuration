@@ -3834,5 +3834,4 @@ fatal: [localhost]: FAILED! => {
 }
 
 PLAY RECAP *********************************************************************
-localhost                  : ok=4    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
-
+localhost                  : ok=4    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
