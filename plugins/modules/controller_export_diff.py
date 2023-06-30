@@ -300,6 +300,8 @@ def main():
     # Loop over each resource type that we gathered from the API.
     output_list = {}
     output_list["removed"] = []
+    output_list["staRt"] = []
+    output_list["awxlist"] = []
     for resource in export_args:
         try:
             if resource in compare_items:
@@ -308,6 +310,8 @@ def main():
                         resource_object.update({"state": "present"})
                     for idx, dict_ in enumerate(awxkit_list[resource]):
                         try:
+                            dict_orig = dict_
+                            idx_org = idx
                             if resource == "users":
                                 if resource_object["username"] == dict_["username"]:
                                     output_list["removed"].append(awxkit_list[resource][idx])
@@ -317,11 +321,22 @@ def main():
                                     output_list["removed"].append(awxkit_list[resource][idx])
                                     awxkit_list[resource].pop(idx)
                             else:
+                                # for idx, dict_ in enumerate(awxkit_list[resource]):
+                                output_list["staRt"].append(dict_)
+                                output_list["awxlist"].append(awxkit_list[resource])
                                 if resource_object["name"] == dict_["name"] and resource_object["organization"]["name"] == dict_["organization"]["name"]:
-                                    output_list["removed"].append(awxkit_list[resource][idx])
+                                    #output_list["idx"].append(awxkit_list[resource][idx])
+                                    output_list["removed"].append(dict_)
                                     awxkit_list[resource].pop(idx)
                         except Exception as e:
-                            module.fail_json(msg="Failed to match assets {0} with resource {1}, and exported {2}".format(e, resource_object, dict_))
+                            error_dict ={}
+                            error_dict["resource_object"] = resource_object
+                            error_dict["dict_"] = dict_
+                            error_dict["dict_orig"] = dict_orig
+                            error_dict["idx_org"] = idx_org
+                            error_dict["removed"] = resource_object["name"]
+                            error_dict["output_list"] = output_list
+                            module.fail_json(msg="Failed to match assets {0} with resource {1}, and errors {2}".format(e, resource_object, error_dict))
                 # After looping through every item in the compare_items the remaining are set to absent.
                 if set_absent:
                     if awxkit_list[resource]:
