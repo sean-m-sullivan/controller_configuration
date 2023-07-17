@@ -91,12 +91,18 @@ Minor Changes
 - Renamed the field `update` to `update_project` to avoid colliding with the Python dict update method
 - Renamed variable controller_workflow_job_templates to controller_workflows (the previos one was not used at all).
 - Renamed variable controller_workflow_job_templates to controller_workflows (the previos one was not used at all).
+- add organizations tag in a dispatch task which is in charge of applying galaxy credencitals in the organization.
+- added the instance_groups filed to the roles role.
+- added the possibility to export schedules through the filetree_create role
+- remove depencency of CONTROLER_USERNAME variable for object_diff role by calling the API with api/me instead of calling the api/users and filtering by username
 - return_all: true has been added to return the maximum of max_objects=query_controller_api_max_objects objects.
 
 Bugfixes
 --------
 
+- Changes default value for `*_enforce_defaults` to false instead of the truthy value (due to the quotes), 'false'.
 - Enable the ability to define simple_workflow_nodes on workflow_job_templates without the need to set the `state` on a workflow_job_template (https://github.com/redhat-cop/controller_configuration/issues/297).
+- fixed an the users and teams field on the roles role to be correct and not singular.
 
 v2.2.4
 ======
