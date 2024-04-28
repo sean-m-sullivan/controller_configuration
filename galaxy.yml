@@ -28,4 +28,6 @@ tags:
     - controller_configuration
     - automation_platform
     - infrastructure
+dependencies:
+    "awx.awx": ">=24.2.0"
 ...
